@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  cadvisor:
+    image: google/cadvisor
+    expose:
+      - 8080
+    volumes:
+      - /mnt/c:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+
+  metrics-gateway:
+    image: prom/pushgateway
+    expose:
+      - 9091
+
+  prometheus:
+    image: prom/prometheus
+    expose:
+      - 9090
+    depends_on:
+      - cadvisor
+      - metrics-gateway
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana-ui:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
+      - prometheus
+    volumes:
+      - ./grafana_data:/var/lib/grafana
