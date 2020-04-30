@@ -28,6 +28,9 @@ and import dashboard from file:
 dashboard.json
 ```
 
+Result:
+![dashbaord](screen/dashboard.png)
+
 Note:
 
 Add more rabbitmq servers in 
@@ -36,4 +39,5 @@ Add more rabbitmq servers in
     static_configs:
       - targets:
           - 'rabbitmq:15692'
+          - 'rabbitmq2:15692'
 ```
