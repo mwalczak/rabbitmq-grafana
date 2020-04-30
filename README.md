@@ -1,6 +1,6 @@
-# redis-grafana
+# rabbitmq-grafana
 
-Monitor redis instance with Grafana, Prometheus and Redis exporter
+Monitor rabbitmq instance with Grafana and Prometheus
 
 Start with:
 ```
